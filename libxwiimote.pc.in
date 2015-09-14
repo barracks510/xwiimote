@@ -7,5 +7,5 @@ Name: libxwiimote
 Description: Library to control Nintendo Wii Remotes
 Requires: libudev
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lxwiimote
-Cflags: -I${includedir}
+Libs: @XWIIMOTE_LIBS@
+Cflags: @XWIIMOTE_CFLAGS@

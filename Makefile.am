@@ -21,7 +21,7 @@ AM_MAKEFLAGS = --no-print-directory
 AUTOMAKE_OPTIONS = color-tests
 AM_DISTCHECK_CONFIGURE_FLAGS = --enable-debug
 
-SUBDIRS = .
+SUBDIRS = . bindings
 
 .DELETE_ON_ERROR:
 

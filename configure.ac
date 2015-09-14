@@ -7,7 +7,7 @@
 AC_PREREQ(2.68)
 
 AC_INIT([xwiimote],
-        [2],
+        [2.1],
         [http://github.com/dvdhrm/xwiimote/issues],
         [xwiimote],
         [http://dvdhrm.github.io/xwiimote])
@@ -41,6 +41,24 @@ AC_SUBST(UDEV_LIBS)
 PKG_CHECK_MODULES([NCURSES], [ncurses])
 AC_SUBST(NCURSES_CFLAGS)
 AC_SUBST(NCURSES_LIBS)
+
+AC_CHECK_PROG([SWIG], [swig], [swig])
+if test ! "x$SWIG" = "xswig" ; then
+        AC_ERROR([swig not found])
+fi
+
+AM_PATH_PYTHON(, [have_python="yes"], [have_python="no"])
+AM_CONDITIONAL(HAVE_PYTHON, test "x$have_python" = "xyes")
+
+have_perl="no"
+AC_PATH_PROG([PERL], [perl], ["no"])
+if test ! "x$perl" = "xno" ; then
+        have_perl="yes"
+fi
+AM_CONDITIONAL(HAVE_PERL, test "x$have_perl" = "xyes")
+
+AC_SUBST([XWIIMOTE_CFLAGS], ['-I${includedir}'])
+AC_SUBST([XWIIMOTE_LIBS], ['-L${libdir} -lxwiimote'])
 
 AC_MSG_CHECKING([whether to build with debugging on])
 AC_ARG_ENABLE([debug],
@@ -77,7 +95,14 @@ AM_CONDITIONAL([HAVE_DOXYGEN], [test "$have_doxygen" = yes])
 # Write configuration
 #
 
-AC_CONFIG_FILES([Makefile libxwiimote.pc doc/Doxyfile])
+AC_CONFIG_FILES([
+  Makefile
+  libxwiimote.pc
+  doc/Doxyfile
+  bindings/Makefile
+  bindings/python/setup.py
+  bindings/perl/Makefile.PL
+])
 AC_OUTPUT
 
 AC_MSG_NOTICE([Build configuration:

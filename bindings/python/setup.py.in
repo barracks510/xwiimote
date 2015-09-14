@@ -8,8 +8,8 @@ from distutils.core import setup, Extension
 
 xwiimote_module = Extension('_xwiimote',
                             sources=['xwiimote_wrap.c'],
-                            include_dirs=['@XWIIMOTE_INCLUDEDIR@'],
-                            library_dirs=['@XWIIMOTE_LIBDIR@'],
+                            include_dirs=['@includedir@'],
+                            library_dirs=['@libdir@'],
                             libraries=['xwiimote'],
                            )
 

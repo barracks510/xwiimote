@@ -51,13 +51,13 @@ clean-local-python:
 
 install-exec-hook-python: $(builddir)/xwiimote_wrap.c
 	if test -n "$(DESTDIR)"; then\
-		$(PYTHON) python/setup.py install --root=$(DESTDIR) --prefix=$(prefix) --record=@top_builddir@/python/installed_files.log; \
+		$(PYTHON) python/setup.py install --root=$(DESTDIR) --prefix=$(prefix) --record=@top_builddir@/bindings/python/installed_files.log; \
 	else \
-		$(PYTHON) python/setup.py install --prefix=$(prefix) --record=@top_builddir@/python/installed_files.log; \
+		$(PYTHON) python/setup.py install --prefix=$(prefix) --record=@top_builddir@/bindings/python/installed_files.log; \
 	fi
 
 uninstall-hook-python:
-	cat @top_builddir@/python/installed_files.log \
+	cat @top_builddir@/bindings/python/installed_files.log \
 	  | awk '{print "$(DESTDIR)"$$1}' | xargs rm -vf
 
 else # HAVE_PYTHON
